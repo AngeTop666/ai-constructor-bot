@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="description" content="Arqtor AI — мобильный редактор чертежей и 3D-конструкций">
+  <title>Arqtor AI — конструктор</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b1220;--panel:#111c2d;--panel2:#17263b;--line:#263a55;--text:#edf4ff;--muted:#97abc4;--blue:#5aa0ff;--cyan:#65ded0;--warn:#ffd384}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -10%,#19375b 0,transparent 40%),var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    button,input,select,textarea{font:inherit}button{cursor:pointer;color:inherit}.shell{max-width:1180px;margin:auto;padding:0 18px 34px}.top{padding:22px 0 16px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#5aa0ff,#56d4cb);color:#081423;font-weight:900;font-size:23px}.brand h1{font-size:20px;margin:0;letter-spacing:.2px}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}.tag{border:1px solid #345273;color:#b9d7fa;border-radius:99px;padding:7px 11px;font-size:12px;white-space:nowrap}
+    .hero{padding:16px 0 20px}.hero h2{font-size:clamp(23px,4vw,34px);line-height:1.15;margin:0 0 7px}.hero p{margin:0;color:var(--muted)}
+    .menu{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin:2px 0 18px}.menu button{background:rgba(20,34,53,.9);border:1px solid var(--line);border-radius:13px;padding:12px 9px;min-height:68px;text-align:left;color:#d9e8fb;transition:.15s}.menu button:hover,.menu button.active{border-color:#538cce;background:#18304d}.menu b{display:block;font-size:13px}.menu span{font-size:19px;display:block;margin-bottom:4px}
+    .layout{display:grid;grid-template-columns:310px minmax(0,1fr);gap:14px;align-items:start}.card{background:linear-gradient(160deg,rgba(23,38,59,.98),rgba(15,26,42,.98));border:1px solid var(--line);border-radius:17px;padding:16px;box-shadow:0 10px 28px #0002}.card h3{font-size:16px;margin:0 0 12px}.card h4{margin:0 0 5px}.stack{display:grid;gap:14px}.field{margin:10px 0}.field label{display:block;color:#c1d0e2;font-size:12px;margin-bottom:5px}.field input,.field select,.field textarea{width:100%;border:1px solid #344a67;background:#0d1828;border-radius:10px;padding:11px 12px;color:var(--text);outline:none}.field textarea{resize:vertical;min-height:90px}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #5aa0ff22}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}.btn{border:0;border-radius:10px;background:linear-gradient(135deg,#438ce8,#3676ce);padding:11px 13px;font-weight:700;width:100%;color:white}.btn.secondary{background:#203653;border:1px solid #3b5777;color:#d9e8fb}.btn.ghost{background:transparent;border:1px solid #375371;color:#cbe0f8}.btnrow{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.status{min-height:20px;margin:10px 0 0;color:var(--cyan);font-size:12px}.hint{font-size:12px;color:var(--muted);margin:10px 0 0}.notice{background:#1a2c41;border:1px solid #38526f;border-radius:11px;color:#bed0e5;padding:10px 12px;font-size:12px}.work{display:grid;grid-template-columns:1fr;gap:14px}.view-card{min-width:0}.view-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.view-head h3{margin:0}.view-label{color:var(--muted);font-size:12px}#view{height:370px;border-radius:13px;overflow:hidden;background:#0d1828;touch-action:none}#view canvas{display:block;width:100%;height:100%}#drawing{background:#f8fbff;width:100%;height:auto;border-radius:12px;display:block}.section{display:none}.section.visible{display:block}.material-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.material{border:1px solid var(--line);background:#101d2f;border-radius:12px;padding:12px}.material small{color:var(--muted)}.assistant-out{min-height:48px;margin-top:10px;color:#cce5ff;background:#0b1728;border-radius:10px;padding:12px;font-size:13px}.photo-preview{display:none;max-width:100%;max-height:260px;border-radius:12px;margin-top:12px;border:1px solid var(--line)}.footer{color:#7187a2;font-size:11px;text-align:center;padding:20px 0}
+    @media(max-width:900px){.menu{grid-template-columns:repeat(3,1fr)}.layout{grid-template-columns:280px minmax(0,1fr)}}
+    @media(max-width:680px){.shell{padding:0 12px 28px}.top{padding-top:15px}.brand h1{font-size:18px}.tag{font-size:10px}.hero{padding:12px 0 16px}.menu{display:flex;overflow-x:auto;margin-right:-12px;padding:0 12px 7px 0;scroll-snap-type:x mandatory}.menu button{min-width:142px;scroll-snap-align:start}.layout{display:flex;flex-direction:column}.layout>*,.layout aside{width:100%}.layout aside{order:2}.layout .work{order:1;width:100%}#view{height:min(66vw,330px);min-height:250px}.card{padding:14px}.material-list{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <header class="top"><div class="brand"><div class="logo">A</div><div><h1>Arqtor AI</h1><p>Мобильный конструктор · чертежи и 3D</p></div></div><div class="tag">Работа сохраняется на устройстве</div></header>
+  <section class="hero"><h2>Создавайте конструкции<br>в одном месте</h2><p>Задайте размеры, посмотрите модель и скачайте чертёж.</p></section>
+  <nav class="menu" aria-label="Главное меню">
+    <button data-section="assistant" class="active"><span>✦</span><b>ИИ-помощник</b></button>
+    <button data-section="photo"><span>▧</span><b>Анализ фотографий</b></button>
+    <button data-section="editor"><span>⌗</span><b>Создать чертёж</b></button>
+    <button data-section="editor"><span>✎</span><b>Редактировать</b></button>
+    <button data-section="editor"><span>◈</span><b>3D-конструктор</b></button>
+    <button data-section="materials"><span>◉</span><b>Подбор материалов</b></button>
+  </nav>
+  <section id="assistant" class="section visible card">
+    <h3>ИИ-помощник</h3><div class="notice">Помощник пока работает в демонстрационном режиме: здесь нет подключённого ИИ-сервера. Введите задачу — подскажем, какие параметры подготовить.</div>
+    <div class="field"><label for="question">Опишите, что хотите построить</label><textarea id="question" placeholder="Например: стол для мастерской 120 × 60 см"></textarea></div>
+    <button class="btn" id="ask">Подготовить параметры</button><div id="answer" class="assistant-out" aria-live="polite">После отправки появится краткая подсказка.</div>
+  </section>
+  <section id="photo" class="section card">
+    <h3>Анализ фотографий</h3><div class="notice">Файл обрабатывается только в этом браузере. Сейчас доступен просмотр снимка и чтение его размеров; распознавание объектов потребует подключения модели.</div>
+    <div class="field"><label for="photoFile">Выберите фотографию</label><input type="file" id="photoFile" accept="image/*" capture="environment"></div>
+    <img id="photoPreview" class="photo-preview" alt="Предпросмотр загруженного фото"><div id="photoInfo" class="status" aria-live="polite"></div>
+  </section>
+  <section id="materials" class="section">
+    <div class="card"><h3>Подбор материалов</h3><p class="hint">Выберите материал в редакторе, чтобы увидеть его на модели. Ниже — краткая справка для предварительного выбора.</p>
+      <div class="material-list" style="margin-top:12px">
+        <div class="material"><h4>Сталь</h4><small>Жёсткие конструкции и рамы. Нужны защита от коррозии и проверка нагрузки.</small></div>
+        <div class="material"><h4>Алюминий</h4><small>Лёгкие детали и профили. Учитывайте сплав, соединения и прогиб.</small></div>
+        <div class="material"><h4>Дерево</h4><small>Мебель и панели. Направление волокон и влажность влияют на прочность.</small></div>
+        <div class="material"><h4>Пластик</h4><small>Лёгкие корпуса и макеты. Термостойкость зависит от конкретного полимера.</small></div>
+      </div><p class="hint">Справка не заменяет инженерный расчёт; прочность и безопасность конструкций не рассчитываются.</p>
+      <button class="btn secondary" data-open-editor>Открыть редактор</button>
+    </div>
+  </section>
+  <main id="editor" class="section">
+    <div class="layout">
+      <aside class="card">
+        <h3>Параметры проекта</h3>
+        <div class="field"><label for="kind">Тип конструкции</label><select id="kind"><option value="frame">Каркас</option><option value="solid">Сплошной блок</option><option value="table">Стол</option></select></div>
+        <div class="field"><label for="material">Материал</label><select id="material"><option value="steel">Сталь</option><option value="aluminum">Алюминий</option><option value="wood">Дерево</option><option value="plastic">Пластик</option></select></div>
+        <div class="grid2"><div class="field"><label for="w">Ширина, мм</label><input id="w" type="number" inputmode="numeric" value="1200" min="50" max="20000"></div><div class="field"><label for="d">Глубина, мм</label><input id="d" type="number" inputmode="numeric" value="600" min="50" max="20000"></div></div>
+        <div class="grid2"><div class="field"><label for="h">Высота, мм</label><input id="h" type="number" inputmode="numeric" value="800" min="50" max="20000"></div><div class="field"><label for="t">Толщина, мм</label><input id="t" type="number" inputmode="numeric" value="40" min="5" max="500"></div></div>
+        <div class="btnrow"><button class="btn" id="svg">Скачать SVG</button><button class="btn" id="stl">Скачать STL</button><button class="btn secondary" id="json">Сохранить JSON</button><button class="btn ghost" id="reset">Сбросить</button></div>
+        <p class="status" id="status" aria-live="polite"></p><p class="hint">Размеры от 1 до 20&nbsp;000 мм. Проект автоматически сохраняется в localStorage этого браузера.</p>
+      </aside>
+      <div class="work">
+        <section class="card view-card"><div class="view-head"><h3>3D-модель</h3><span class="view-label">Перетаскивайте · масштабируйте двумя пальцами</span></div><div id="view" aria-label="Интерактивная 3D модель"></div></section>
+        <section class="card view-card"><div class="view-head"><h3>Чертёж</h3><span class="view-label">Вид спереди и сверху · мм</span></div><svg id="drawing" viewBox="0 0 600 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Чертёж конструкции"></svg></section>
+      </div>
+    </div>
+  </main>
+  <footer class="footer">Arqtor AI · Предварительная визуализация. Перед изготовлением проверьте конструкцию и нагрузки.</footer>
+</div>
+<script type="module">
+import * as THREE from 'https://esm.sh/three@0.180.0';
+import {OrbitControls} from 'https://esm.sh/three@0.180.0/addons/controls/OrbitControls.js';
+import {STLExporter} from 'https://esm.sh/three@0.180.0/addons/exporters/STLExporter.js';
+const fields=['kind','material','w','d','h','t'],e=Object.fromEntries(fields.map(k=>[k,document.getElementById(k)]));
+const defaults={kind:'frame',material:'steel',w:1200,d:600,h:800,t:40};
+try{const saved=JSON.parse(localStorage.getItem('arqtor')||'null');if(saved)fields.forEach(k=>{if(saved[k]!=null)e[k].value=saved[k]})}catch{}
+let activeSection='assistant';
+function showSection(id){activeSection=id;document.querySelectorAll('.section').forEach(s=>s.classList.toggle('visible',s.id===id));document.querySelectorAll('.menu button').forEach(b=>b.classList.toggle('active',b.dataset.section===id));if(id==='editor')requestAnimationFrame(resize)}
+document.querySelectorAll('.menu button').forEach(b=>b.addEventListener('click',()=>showSection(b.dataset.section)));
+document.querySelectorAll('[data-open-editor]').forEach(b=>b.addEventListener('click',()=>{showSection('editor');document.querySelector('.menu button[data-section="editor"]').classList.add('active')}));
+const scene=new THREE.Scene();scene.background=new THREE.Color('#0d1828');const camera=new THREE.PerspectiveCamera(45,1,1,100000),renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio,2));document.getElementById('view').append(renderer.domElement);scene.add(new THREE.HemisphereLight(0xffffff,0x425570,2.5));const sun=new THREE.DirectionalLight(0xffffff,2);sun.position.set(2000,3000,1000);scene.add(sun);const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;const group=new THREE.Group();scene.add(group);scene.add(new THREE.GridHelper(5000,25,0x546982,0x304054));let current=null;
+function box(x,y,z,w,h,d,color,metal){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),new THREE.MeshStandardMaterial({color,metalness:metal,roughness:.55}));mesh.position.set(x,y,z);group.add(mesh)}
+function params(){const p={kind:e.kind.value,material:e.material.value};for(const k of ['w','d','h','t']){p[k]=Number(e[k].value);if(!Number.isFinite(p[k])||p[k]<=0||p[k]>20000)throw Error('Размеры должны быть больше 0 и не превышать 20 000 мм')}if(p.t>=Math.min(p.w,p.d,p.h)/2)throw Error('Толщина должна быть меньше половины минимального размера');return p}
+function build(p){while(group.children.length){const o=group.children[0];group.remove(o);o.geometry.dispose();o.material.dispose()}const color={steel:0x94afc4,aluminum:0xcbd7e3,wood:0xb88952,plastic:0x52bba5}[p.material],metal=['steel','aluminum'].includes(p.material)?.55:0,add=(...a)=>box(...a,color,metal);if(p.kind==='solid')add(0,p.h/2,0,p.w,p.h,p.d);else{const x=(p.w-p.t)/2,z=(p.d-p.t)/2;for(const xx of [-x,x])for(const zz of [-z,z])add(xx,p.h/2,zz,p.t,p.h,p.t);for(const yy of [p.t/2,p.h-p.t/2]){for(const zz of [-z,z])add(0,yy,zz,p.w,p.t,p.t);for(const xx of [-x,x])add(xx,yy,0,p.t,p.t,p.d)}if(p.kind==='table')add(0,p.h-p.t/2,0,p.w,p.t,p.d)}camera.position.set(p.w*1.4,p.h*1.5,p.d*2.3);controls.target.set(0,p.h/2,0);controls.update()}
+function draw(p){const s=Math.min(450/p.w,145/p.h,145/p.d),w=p.w*s,h=p.h*s,d=p.d*s,t=Math.max(2,p.t*s),x=55,y=50;const rect=(a,b,c,f,fill='none')=>`<rect x="${a}" y="${b}" width="${c}" height="${f}" fill="${fill}" stroke="#254361" stroke-width="2"/>`,text=(a,b,c)=>`<text x="${a}" y="${b}" fill="#263d57" font-size="13">${c}</text>`;let out=text(x,24,'Вид спереди')+rect(x,y,w,h,p.kind==='solid'?'#d7e3ee':'none');if(p.kind!=='solid')out+=rect(x+t,y+t,Math.max(0,w-2*t),Math.max(0,h-2*t),'#f8fbff');if(p.kind==='table')out+=rect(x,y,w,t,'#c2d0df');out+=text(x,y+h+26,p.w+' мм')+text(x+w+12,y+h/2,p.h+' мм')+text(x,255,'Вид сверху')+rect(x,275,w,d,p.kind==='solid'||p.kind==='table'?'#d7e3ee':'none');if(p.kind==='frame')out+=rect(x+t,275+t,Math.max(0,w-2*t),Math.max(0,d-2*t),'#f8fbff');out+=text(x,275+d+24,p.w+' мм')+text(x+w+12,275+d/2,p.d+' мм')+text(x,445,'Сечение: '+p.t+' мм');document.getElementById('drawing').innerHTML=out}
+function update(){try{current=params();build(current);draw(current);localStorage.setItem('arqtor',JSON.stringify(current));document.getElementById('status').textContent='Модель обновлена и сохранена'}catch(err){document.getElementById('status').textContent=err.message}}
+fields.forEach(k=>e[k].addEventListener('input',update));function download(data,name,type){const url=URL.createObjectURL(new Blob([data],{type})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+document.getElementById('svg').onclick=()=>current&&download(new XMLSerializer().serializeToString(document.getElementById('drawing')),'arqtor-drawing.svg','image/svg+xml');document.getElementById('json').onclick=()=>current&&download(JSON.stringify(current,null,2),'arqtor-project.json','application/json');document.getElementById('stl').onclick=()=>current&&download(new STLExporter().parse(group),'arqtor-model.stl','model/stl');document.getElementById('reset').onclick=()=>{fields.forEach(k=>e[k].value=defaults[k]);update()};
+function resize(){const v=document.getElementById('view');if(!v.clientWidth||!v.clientHeight)return;renderer.setSize(v.clientWidth,v.clientHeight,false);camera.aspect=v.clientWidth/v.clientHeight;camera.updateProjectionMatrix()}new ResizeObserver(resize).observe(document.getElementById('view'));window.addEventListener('resize',resize);update();
+function animate(){requestAnimationFrame(animate);controls.update();renderer.render(scene,camera)}animate();
+document.getElementById('ask').onclick=()=>{const q=document.getElementById('question').value.trim(),answer=document.getElementById('answer');answer.textContent=q?`Для задачи «${q.slice(0,140)}${q.length>140?'…':''}» уточните назначение конструкции, размеры, материал, способ крепления и предполагаемую нагрузку. Затем откройте редактор и внесите размеры. ИИ-сервер пока не подключён.`:'Опишите задачу и укажите хотя бы примерные размеры — подготовлю список параметров для редактора.'};
+document.getElementById('photoFile').addEventListener('change',ev=>{const f=ev.target.files?.[0],img=document.getElementById('photoPreview'),info=document.getElementById('photoInfo');if(!f){img.style.display='none';info.textContent='';return}if(!f.type.startsWith('image/')){info.textContent='Выберите файл изображения.';return}const url=URL.createObjectURL(f);img.onload=()=>{info.textContent=`${f.name} · ${img.naturalWidth} × ${img.naturalHeight} px · ${(f.size/1024).toFixed(0)} КБ. Автораспознавание пока недоступно.`;URL.revokeObjectURL(url)};img.src=url;img.style.display='block'});
+</script>
+</body>
+</html>
