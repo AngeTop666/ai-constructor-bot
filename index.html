@@ -13,6 +13,7 @@
     .hero{padding:16px 0 20px}.hero h2{font-size:clamp(23px,4vw,34px);line-height:1.15;margin:0 0 7px}.hero p{margin:0;color:var(--muted)}
     .menu{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin:2px 0 18px}.menu button{background:rgba(20,34,53,.9);border:1px solid var(--line);border-radius:13px;padding:12px 9px;min-height:68px;text-align:left;color:#d9e8fb;transition:.15s}.menu button:hover,.menu button.active{border-color:#538cce;background:#18304d}.menu b{display:block;font-size:13px}.menu span{font-size:19px;display:block;margin-bottom:4px}
     .layout{display:grid;grid-template-columns:310px minmax(0,1fr);gap:14px;align-items:start}.card{background:linear-gradient(160deg,rgba(23,38,59,.98),rgba(15,26,42,.98));border:1px solid var(--line);border-radius:17px;padding:16px;box-shadow:0 10px 28px #0002}.card h3{font-size:16px;margin:0 0 12px}.card h4{margin:0 0 5px}.stack{display:grid;gap:14px}.field{margin:10px 0}.field label{display:block;color:#c1d0e2;font-size:12px;margin-bottom:5px}.field input,.field select,.field textarea{width:100%;border:1px solid #344a67;background:#0d1828;border-radius:10px;padding:11px 12px;color:var(--text);outline:none}.field textarea{resize:vertical;min-height:90px}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #5aa0ff22}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}.btn{border:0;border-radius:10px;background:linear-gradient(135deg,#438ce8,#3676ce);padding:11px 13px;font-weight:700;width:100%;color:white}.btn.secondary{background:#203653;border:1px solid #3b5777;color:#d9e8fb}.btn.ghost{background:transparent;border:1px solid #375371;color:#cbe0f8}.btnrow{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.status{min-height:20px;margin:10px 0 0;color:var(--cyan);font-size:12px}.hint{font-size:12px;color:var(--muted);margin:10px 0 0}.notice{background:#1a2c41;border:1px solid #38526f;border-radius:11px;color:#bed0e5;padding:10px 12px;font-size:12px}.work{display:grid;grid-template-columns:1fr;gap:14px}.view-card{min-width:0}.view-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.view-head h3{margin:0}.view-label{color:var(--muted);font-size:12px}#view{height:370px;border-radius:13px;overflow:hidden;background:#0d1828;touch-action:none}#view canvas{display:block;width:100%;height:100%}#drawing{background:#f8fbff;width:100%;height:auto;border-radius:12px;display:block}.section{display:none}.section.visible{display:block}.material-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.material{border:1px solid var(--line);background:#101d2f;border-radius:12px;padding:12px}.material small{color:var(--muted)}.assistant-out{min-height:48px;margin-top:10px;color:#cce5ff;background:#0b1728;border-radius:10px;padding:12px;font-size:13px}.photo-preview{display:none;max-width:100%;max-height:260px;border-radius:12px;margin-top:12px;border:1px solid var(--line)}.footer{color:#7187a2;font-size:11px;text-align:center;padding:20px 0}
+    .section-nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 16px}.section-nav button{min-height:44px}
     @media(max-width:900px){.menu{grid-template-columns:repeat(3,1fr)}.layout{grid-template-columns:280px minmax(0,1fr)}}
     @media(max-width:680px){.shell{padding:0 12px 28px}.top{padding-top:15px}.brand h1{font-size:18px}.tag{font-size:10px}.hero{padding:12px 0 16px}.menu{display:flex;overflow-x:auto;margin-right:-12px;padding:0 12px 7px 0;scroll-snap-type:x mandatory}.menu button{min-width:142px;scroll-snap-align:start}.layout{display:flex;flex-direction:column}.layout>*,.layout aside{width:100%}.layout aside{order:2}.layout .work{order:1;width:100%}#view{height:min(66vw,330px);min-height:250px}.card{padding:14px}.material-list{grid-template-columns:1fr 1fr}}
   </style>
@@ -30,17 +31,17 @@
     <button data-section="materials"><span>◉</span><b>Подбор материалов</b></button>
   </nav>
   <section id="assistant" class="section visible card">
-    <h3>ИИ-помощник</h3><div class="notice">Помощник пока работает в демонстрационном режиме: здесь нет подключённого ИИ-сервера. Введите задачу — подскажем, какие параметры подготовить.</div>
+    <h3>ИИ-помощник</h3><div class="section-nav"><button class="btn secondary" data-nav-back>← Назад</button><button class="btn ghost" data-nav-home>⌂ Главное меню</button></div><div class="notice">Помощник пока работает в демонстрационном режиме: здесь нет подключённого ИИ-сервера. Введите задачу — подскажем, какие параметры подготовить.</div>
     <div class="field"><label for="question">Опишите, что хотите построить</label><textarea id="question" placeholder="Например: стол для мастерской 120 × 60 см"></textarea></div>
     <button class="btn" id="ask">Подготовить параметры</button><div id="answer" class="assistant-out" aria-live="polite">После отправки появится краткая подсказка.</div>
   </section>
   <section id="photo" class="section card">
-    <h3>Анализ фотографий</h3><div class="notice">Файл обрабатывается только в этом браузере. Сейчас доступен просмотр снимка и чтение его размеров; распознавание объектов потребует подключения модели.</div>
+    <h3>Анализ фотографий</h3><div class="section-nav"><button class="btn secondary" data-nav-back>← Назад</button><button class="btn ghost" data-nav-home>⌂ Главное меню</button></div><div class="notice">Файл обрабатывается только в этом браузере. Сейчас доступен просмотр снимка и чтение его размеров; распознавание объектов потребует подключения модели.</div>
     <div class="field"><label for="photoFile">Выберите фотографию</label><input type="file" id="photoFile" accept="image/*" capture="environment"></div>
     <img id="photoPreview" class="photo-preview" alt="Предпросмотр загруженного фото"><div id="photoInfo" class="status" aria-live="polite"></div>
   </section>
   <section id="materials" class="section">
-    <div class="card"><h3>Подбор материалов</h3><p class="hint">Выберите материал в редакторе, чтобы увидеть его на модели. Ниже — краткая справка для предварительного выбора.</p>
+    <div class="card"><h3>Подбор материалов</h3><div class="section-nav"><button class="btn secondary" data-nav-back>← Назад</button><button class="btn ghost" data-nav-home>⌂ Главное меню</button></div><p class="hint">Выберите материал в редакторе, чтобы увидеть его на модели. Ниже — краткая справка для предварительного выбора.</p>
       <div class="material-list" style="margin-top:12px">
         <div class="material"><h4>Сталь</h4><small>Жёсткие конструкции и рамы. Нужны защита от коррозии и проверка нагрузки.</small></div>
         <div class="material"><h4>Алюминий</h4><small>Лёгкие детали и профили. Учитывайте сплав, соединения и прогиб.</small></div>
@@ -51,6 +52,7 @@
     </div>
   </section>
   <main id="editor" class="section">
+    <div class="section-nav"><button class="btn secondary" data-nav-back>← Назад</button><button class="btn ghost" data-nav-home>⌂ Главное меню</button></div>
     <div class="layout">
       <aside class="card">
         <h3>Параметры проекта</h3>
@@ -76,10 +78,15 @@ import {STLExporter} from 'https://esm.sh/three@0.180.0/addons/exporters/STLExpo
 const fields=['kind','material','w','d','h','t'],e=Object.fromEntries(fields.map(k=>[k,document.getElementById(k)]));
 const defaults={kind:'frame',material:'steel',w:1200,d:600,h:800,t:40};
 try{const saved=JSON.parse(localStorage.getItem('arqtor')||'null');if(saved)fields.forEach(k=>{if(saved[k]!=null)e[k].value=saved[k]})}catch{}
-let activeSection='assistant';
-function showSection(id){activeSection=id;document.querySelectorAll('.section').forEach(s=>s.classList.toggle('visible',s.id===id));document.querySelectorAll('.menu button').forEach(b=>b.classList.toggle('active',b.dataset.section===id));if(id==='editor')requestAnimationFrame(resize)}
+let activeSection='assistant';const sectionHistory=[];
+function renderSection(id){activeSection=id;document.querySelectorAll('.section').forEach(s=>s.classList.toggle('visible',s.id===id));document.querySelectorAll('.menu button').forEach(b=>b.classList.toggle('active',b.dataset.section===id));if(id==='editor')requestAnimationFrame(resize)}
+function showSection(id){if(id!==activeSection)sectionHistory.push(activeSection);renderSection(id)}
+function goBack(){renderSection(sectionHistory.pop()||'assistant')}
+function goHome(){sectionHistory.length=0;renderSection('assistant')}
 document.querySelectorAll('.menu button').forEach(b=>b.addEventListener('click',()=>showSection(b.dataset.section)));
-document.querySelectorAll('[data-open-editor]').forEach(b=>b.addEventListener('click',()=>{showSection('editor');document.querySelector('.menu button[data-section="editor"]').classList.add('active')}));
+document.querySelectorAll('[data-open-editor]').forEach(b=>b.addEventListener('click',()=>showSection('editor')));
+document.querySelectorAll('[data-nav-back]').forEach(b=>b.addEventListener('click',goBack));
+document.querySelectorAll('[data-nav-home]').forEach(b=>b.addEventListener('click',goHome));
 const scene=new THREE.Scene();scene.background=new THREE.Color('#0d1828');const camera=new THREE.PerspectiveCamera(45,1,1,100000);let renderer=null,controls=null;const group=new THREE.Group();scene.add(group);scene.add(new THREE.HemisphereLight(0xffffff,0x425570,2.5));const sun=new THREE.DirectionalLight(0xffffff,2);sun.position.set(2000,3000,1000);scene.add(sun);scene.add(new THREE.GridHelper(5000,25,0x546982,0x304054));try{renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio,2));document.getElementById('view').append(renderer.domElement);controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true}catch(err){document.getElementById('view').classList.add('model-fallback')}let current=null;
 function box(x,y,z,w,h,d,color,metal){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),new THREE.MeshStandardMaterial({color,metalness:metal,roughness:.55}));mesh.position.set(x,y,z);group.add(mesh)}
 function params(){const p={kind:e.kind.value,material:e.material.value};for(const k of ['w','d','h','t']){p[k]=Number(e[k].value);if(!Number.isFinite(p[k])||p[k]<=0||p[k]>20000)throw Error('Размеры должны быть больше 0 и не превышать 20 000 мм')}if(p.t>=Math.min(p.w,p.d,p.h)/2)throw Error('Толщина должна быть меньше половины минимального размера');return p}
